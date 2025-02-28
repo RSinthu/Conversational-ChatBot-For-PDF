@@ -29,7 +29,7 @@ os.environ["LANGCHAIN_PROJECT"] = os.getenv("LANGCHAIN_PROJECT")
 embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 ## set up Streamlit 
-st.title("Conversational ChatRAG PDF")
+st.title("Conversational ChatBot For PDF")
 st.write("Upload Pdf's and chat with their content")
 
 option = st.selectbox(
@@ -66,7 +66,7 @@ if(option):
 
         text_spliter = RecursiveCharacterTextSplitter(chunk_size=1000,chunk_overlap=100)
         splits = text_spliter.split_documents(documents)
-        chromadb = Chroma.from_documents(documents=splits,embedding=embeddings,persist_directory="db3")
+        chromadb = Chroma.from_documents(documents=splits,embedding=embeddings,persist_directory="db")
         retriever = chromadb.as_retriever(search_type="mmr",kwargs={"k":3})
 
         ## Prompt Template
